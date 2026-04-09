@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V Site</title>
+
+<style>
+body { margin:0; font-family: Arial; color:white; overflow:hidden; }
+
+/* MAIN */
+#main{
+  height:100vh;
+  background:url("https://i.ibb.co/mFRsDrgS/Screenshot-2026-0409-235453.png") no-repeat center/cover;
+  position:relative;
+  transition:1s ease;
+}
+
+/* TOP */
+.top{
+  position:absolute;
+  top:20px;
+  right:20px;
+  display:flex;
+  gap:20px;
+  z-index:10;
+}
+
+/* SCROLL */
+.scroll{
+  position:absolute;
+  bottom:40px;
+  width:100%;
+  text-align:center;
+  transition:0.5s;
+}
+
+/* 🔥 ORBIT CONTAINER */
+.orbits{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:350px;
+  height:350px;
+  opacity:0;
+}
+
+/* 🔥 ARC STYLE */
+.orbits path{
+  fill:none;
+  stroke:#9fdcff;
+  stroke-width:1.5;
+  opacity:0.7;
+  filter:drop-shadow(0 0 6px #4cc9ff);
+}
+
+/* 🔥 DIFFERENT ROTATIONS */
+.animate .arc1{
+  animation:spin1 6s linear infinite;
+}
+.animate .arc2{
+  animation:spin2 9s linear infinite;
+}
+.animate .arc3{
+  animation:spin3 12s linear infinite;
+}
+
+@keyframes spin1{
+  from{transform:rotate(0deg); transform-origin:center;}
+  to{transform:rotate(360deg); transform-origin:center;}
+}
+@keyframes spin2{
+  from{transform:rotate(360deg);}
+  to{transform:rotate(0deg);}
+}
+@keyframes spin3{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(-360deg);}
+}
+
+/* CENTER */
+.center{
+  display:none;
+  position:absolute;
+  top:55%;
+  width:100%;
+  text-align:center;
+  opacity:0;
+  transition:1s;
+}
+
+.title{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.desc{
+  font-size:14px;
+  color:#ccc;
+  margin-bottom:20px;
+}
+
+/* BUTTONS */
+.btn{
+  margin:10px;
+  padding:12px 30px;
+  border-radius:30px;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+
+.blue{ background:#3b82f6; }
+.violet{ background:#7c3aed; }
+
+/* ERROR */
+#error{
+  position:fixed;
+  top:-100px;
+  left:50%;
+  transform:translateX(-50%);
+  background:red;
+  padding:10px 20px;
+  border-radius:10px;
+  transition:0.5s;
+}
+</style>
+</head>
+
+<body>
+
+<div id="error">Web3 Installation Error 404 Not Found</div>
+
+<div id="main">
+
+  <div class="top">
+    <div>EN</div>
+    <div onclick="showError()">Connect wallet</div>
+    <div>☰</div>
+  </div>
+
+  <!-- 🔥 EXACT CURVED LINES -->
+  <svg class="orbits" id="orbits" viewBox="0 0 400 400">
+
+    <!-- TOP ARC -->
+    <path class="arc1"
+      d="M50 200 A150 150 0 0 1 350 200" />
+
+    <!-- MIDDLE ARC -->
+    <path class="arc2"
+      d="M80 200 A120 120 0 0 1 320 200" />
+
+    <!-- BOTTOM ARC -->
+    <path class="arc3"
+      d="M20 200 A180 180 0 0 1 380 200" />
+
+  </svg>
+
+  <!-- SCROLL -->
+  <div class="scroll" id="scroll">
+    SCROLL
+  </div>
+
+  <!-- CENTER -->
+  <div class="center" id="center">
+    <div class="title">Meta Whale</div>
+    <div class="desc">
+      An ecosystem uniting games and virtual reality. Explore new formats of digital interaction.
+    </div>
+
+    <div class="btn blue" onclick="showError()">Get Started</div>
+    <div class="btn violet" onclick="showError()">Learn More</div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener("wheel", ()=>{
+  scroll.style.opacity="0";
+
+  // slide up
+  main.style.transform="translateY(-120px)";
+
+  // show arcs
+  let orb = document.getElementById("orbits");
+  orb.style.opacity="1";
+  orb.classList.add("animate");
+
+  // show content
+  center.style.display="block";
+  setTimeout(()=>{
+    center.style.opacity="1";
+  },400);
+});
+
+function showError(){
+  error.style.top="20px";
+  setTimeout(()=>error.style.top="-100px",2000);
+}
+</script>
+
+</body>
+</html>
